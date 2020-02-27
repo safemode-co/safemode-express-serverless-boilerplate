@@ -1,0 +1,15 @@
+image: node:10.15.0
+pipelines:
+  default:
+    - step:
+        script:
+          - npm install
+  branches:
+    dev:
+      - step:
+          name: Install and deploy
+          script:
+            - npm install
+            - npm install -g serverless
+            - serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_KEY
+            - serverless deploy --stage dev
